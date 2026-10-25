@@ -14,8 +14,9 @@ const nav = links.filter(link => ['Work', 'About', 'Expertise', 'Experience'].in
 <header id="top" class="header">
   <div class="nav-pill glass">
     <a class="brand" href="/" aria-label="Adrian Miras — home"><span class="brand-mark" aria-hidden="true">AM</span><span aria-hidden="true">Adrian Miras</span></a>
-    <nav class="nav-links" aria-label="Main">
-      {nav.map(link => <a href={link.href} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
+    <nav class="nav-links" aria-label="Main" data-nav>
+      <span class="nav-indicator" aria-hidden="true"></span>
+      {nav.map(link => <a href={link.href} data-nav-link data-section={link.href.split('#')[1]} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
     </nav>
     <a class="btn btn-white nav-cta" href="/#contact">Let’s talk</a>
     <button class="menu-button" type="button" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false" data-menu-open>
@@ -67,6 +68,49 @@ const nav = links.filter(link => ['Work', 'About', 'Expertise', 'Experience'].in
       }, { signal });
       dialog.querySelectorAll('a').forEach(link => link.addEventListener('click', () => dialog.close(), { signal }));
     }
+
+    // A highlight slides to the hovered or focused link and otherwise rests on the current page or section.
+    const nav = document.querySelector<HTMLElement>('[data-nav]');
+    const navLinks = nav ? [...nav.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')] : [];
+    let active: HTMLAnchorElement | undefined = navLinks.find(link => link.getAttribute('aria-current') === 'page');
+    const place = (link?: HTMLAnchorElement) => {
+      if (!nav) return;
+      if (!link) { nav.removeAttribute('data-indicator'); return; }
+      const box = nav.getBoundingClientRect();
+      const rect = link.getBoundingClientRect();
+      nav.style.setProperty('--nav-l', `${rect.left - box.left}px`);
+      nav.style.setProperty('--nav-r', `${box.right - rect.right}px`);
+      nav.setAttribute('data-indicator', '');
+    };
+    navLinks.forEach(link => {
+      link.addEventListener('pointerenter', () => place(link), { signal });
+      link.addEventListener('focus', () => place(link), { signal });
+    });
+    nav?.addEventListener('pointerleave', () => place(active), { signal });
+    nav?.addEventListener('focusout', () => requestAnimationFrame(() => { if (!nav.contains(document.activeElement)) place(active); }), { signal });
+    window.addEventListener('resize', () => place(active), { passive: true, signal });
+    place(active);
+
+    // On the homepage, the link for the section in view is marked as the current location.
+    const sections = navLinks.map(link => ({ link, section: link.dataset.section ? document.getElementById(link.dataset.section) : null }))
+      .filter((entry): entry is { link: HTMLAnchorElement; section: HTMLElement } => !!entry.section);
+    const spy = sections.length ? new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        const match = sections.find(item => item.section === entry.target);
+        if (!match) return;
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => { if (link.getAttribute('aria-current') !== 'page') link.removeAttribute('aria-current'); });
+          match.link.setAttribute('aria-current', 'location');
+          active = match.link;
+        } else if (active === match.link) {
+          match.link.removeAttribute('aria-current');
+          active = undefined;
+        }
+        if (!nav?.matches(':hover')) place(active);
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' }) : undefined;
+    sections.forEach(({ section }) => spy?.observe(section));
+    signal.addEventListener('abort', () => spy?.disconnect());
 
     const clocks = document.querySelectorAll<HTMLElement>('[data-local-time]');
     const format = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: site.timeZone });
