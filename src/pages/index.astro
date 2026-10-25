@@ -1,0 +1,138 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import ToolsSection from '../components/ToolsSection.astro';
+import WorkGallery from '../components/WorkGallery.astro';
+import ContactSection from '../components/ContactSection.astro';
+import CardArt, { type ArtVariant } from '../components/CardArt.astro';
+import Circuit from '../components/Circuit.astro';
+import Icon from '../components/Icon.astro';
+import { experience, site } from '../data/site';
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const featured = projects.filter(project => project.data.featured).slice(0, 4);
+const expertise = [
+  { name: 'Web design & development', icon: 'code' as const, copy: 'From the first layout to the last line of code. Responsive websites that look intentional and work naturally.', tags: ['Responsive websites', 'Frontend', 'Landing pages'] },
+  { name: 'UI/UX & product design', icon: 'design' as const, copy: 'Clear interfaces, considered interactions, and visual systems that help people find their way.', tags: ['Interfaces', 'Prototyping', 'Mobile experiences'] },
+  { name: 'Graphic & brand design', icon: 'spark' as const, copy: 'Identity, typography, and composition that give an idea its own voice, on screen and in print.', tags: ['Visual identity', 'Editorial', 'Print design'] },
+  { name: 'Marketing & content', icon: 'external' as const, copy: 'A consistent visual presence across social posts, campaign materials, photography, and video.', tags: ['Social media', 'Campaign creative', 'Multimedia'] },
+];
+const principles = [
+  { title: 'Start with the problem.', copy: 'Understand the purpose, the audience, and what the project needs to accomplish.' },
+  { title: 'Make the important things obvious.', copy: 'Use hierarchy, sensible navigation, and thoughtful spacing to give content clarity.' },
+  { title: 'Design for the real screen.', copy: 'Consider the content, the device, and the person on the other side of it.' },
+  { title: 'Refine what matters.', copy: 'Pay attention to alignment, readability, consistency, and how the experience performs.' },
+];
+type Tile = { x: string; y: string; size: number; speed: number; rotate: number; logo?: string; art?: ArtVariant; optional?: boolean };
+const tiles: Tile[] = [
+  { x: '6%', y: '12%', size: 96, speed: 1.4, rotate: -8, logo: 'figma' },
+  { x: '15%', y: '56%', size: 124, speed: 0.8, rotate: 6, art: 'print' },
+  { x: '4%', y: '84%', size: 76, speed: 1.8, rotate: -4, logo: 'react', optional: true },
+  { x: '27%', y: '4%', size: 70, speed: 2.2, rotate: 10, logo: 'photoshop', optional: true },
+  { x: '78%', y: '6%', size: 112, speed: 1.1, rotate: 8, art: 'mobile' },
+  { x: '90%', y: '40%', size: 80, speed: 1.9, rotate: -10, logo: 'kotlin', optional: true },
+  { x: '81%', y: '68%', size: 130, speed: 0.7, rotate: -6, art: 'editorial' },
+  { x: '67%', y: '88%', size: 72, speed: 2, rotate: 6, logo: 'illustrator', optional: true },
+  { x: '38%', y: '90%', size: 84, speed: 1.3, rotate: -3, art: 'brand', optional: true },
+  { x: '61%', y: '2%', size: 74, speed: 1.6, rotate: 4, logo: 'premiere-pro', optional: true },
+];
+---
+<BaseLayout motion page="home">
+  <Hero projects={projects} />
+  <ToolsSection />
+
+  <section id="about" class="paper section" aria-labelledby="about-title"><div class="container">
+    <div class="section-head"><span class="eyebrow">The person behind the pixels</span></div>
+    <h2 id="about-title" class="sr-only">About Adrian</h2>
+    <p class="statement" data-scrub-text>
+      I’m Adrian <span class="chip-inline" aria-hidden="true">{site.portrait ? <img src={site.portrait} alt="" width="120" height="64" /> : <CardArt variant="glass" />}</span> — a designer <span class="chip-inline" aria-hidden="true"><CardArt variant="web" /></span> who codes <span class="chip-inline" aria-hidden="true" style="background: #0a0a0a"><span class="chip-icon" style="width: 100%; height: 100%"><Icon name="code" /></span></span>, shapes brands <span class="chip-inline" aria-hidden="true"><CardArt variant="print" /></span> and builds things people actually use <span class="chip-inline" aria-hidden="true"><CardArt variant="mobile" /></span>.
+    </p>
+    {site.reel && (
+      <div class="statement-reel" data-video-host>
+        <video data-video="auto" muted loop playsinline preload="metadata" poster={site.reel.poster} aria-label="Showreel">
+          {site.reel.webm && <source src={site.reel.webm} type="video/webm" />}
+          <source src={site.reel.mp4} type="video/mp4" />
+        </video>
+      </div>
+    )}
+  </div></section>
+
+  <WorkGallery projects={featured} total={projects.length} />
+
+  <section id="expertise" class="orbit" aria-labelledby="expertise-title">
+    <div class="orbit-stage">
+      <Circuit />
+      {tiles.map((tile, index) => (
+        <div class="orbit-tile" style={`--x: ${tile.x}; --y: ${tile.y}; --s: ${tile.size}px`} data-speed={tile.speed} data-optional={tile.optional ? '' : undefined} aria-hidden="true">
+          <div class="orbit-tile-inner" style={`--r: ${tile.rotate}deg; --d: ${index * -0.6}s`}>
+            {tile.logo ? <img src={`/images/logos/${tile.logo}.svg`} alt="" width="56" height="56" loading="lazy" /> : <span style="position: relative; display: block; width: 100%; height: 100%"><CardArt variant={tile.art!} /></span>}
+          </div>
+        </div>
+      ))}
+      <div class="orbit-center">
+        <span class="eyebrow">What I bring to the table</span>
+        <h2 id="expertise-title" class="headline headline-md" data-split>More than one way <span class="dim">to create.</span></h2>
+        <p class="lead">From a first impression to the final interaction — I think about how all the pieces work together.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="services-grid">
+        {expertise.map(item => (
+          <article class="service-card glass" data-reveal>
+            <span class="service-icon"><Icon name={item.icon} size={26} /></span>
+            <div>
+              <h3>{item.name}</h3>
+              <p>{item.copy}</p>
+              <div class="service-tags">{item.tags.map(tag => <span class="tag">{tag}</span>)}</div>
+            </div>
+          </article>
+        ))}
+      </div>
+      <p class="services-also">Also in the mix — photography, video editing and publication design.</p>
+    </div>
+  </section>
+
+  <section id="experience" class="spotlight section" data-horizon="planet" aria-labelledby="experience-title">
+    <canvas class="horizon-canvas" data-horizon-canvas aria-hidden="true"></canvas>
+    <div class="horizon-css" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Where I’ve been</span>
+        <h2 id="experience-title" class="headline headline-md" data-split>The work <span class="dim">behind the portfolio.</span></h2>
+        <p class="lead center">Hands-on experience. Real deadlines. A lot of care along the way.</p>
+      </div>
+      <ol class="exp-grid">
+        {experience.map(item => (
+          <li class="exp-card" data-reveal>
+            <span class="exp-period">{item.period}</span>
+            <h3>{item.role}</h3>
+            <p class="exp-company">{item.company} — {item.detail}</p>
+            <p>{item.description}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="approach-title">
+    <div class="section-head">
+      <span class="eyebrow">How I think, how I work</span>
+      <h2 id="approach-title" class="headline headline-md" data-split>The details are <span class="dim">part of the job.</span></h2>
+    </div>
+    <div class="bento">
+      <div class="bento-feature" data-reveal>
+        <h3 class="headline headline-md">Thoughtful <span class="dim">by design.</span></h3>
+        <p>Every project starts with the problem — and ends with the details that make it feel finished.</p>
+      </div>
+      {principles.map((item, index) => (
+        <article class="bento-item glass" data-reveal>
+          <span class="bento-num">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.copy}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <ContactSection />
+</BaseLayout>

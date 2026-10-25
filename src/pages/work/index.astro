@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectVisual from '../../components/ProjectVisual.astro';
+import ContactSection from '../../components/ContactSection.astro';
+import Icon from '../../components/Icon.astro';
+const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+const categories = ['All work', ...new Set(projects.map(project => project.data.category))];
+const tagClass: Record<string, string> = { Web: '', Product: 'is-white', Graphic: '', Editorial: 'is-grey', Branding: 'is-white' };
+---
+<BaseLayout title="Selected Work — Adrian Miras" description="Explore Adrian Miras’s work across web design, mobile interfaces, marketing, editorial design, and visual identity.">
+  <section class="work-index container" aria-labelledby="all-work-title">
+    <header class="work-index-head">
+      <span class="eyebrow">Design · Development · Visual storytelling</span>
+      <h1 id="all-work-title" class="headline hero-title" data-split>Selected <span class="dim">work.</span></h1>
+      <p class="lead center" data-reveal>A closer look at what I make, how I think, and where design meets development.</p>
+    </header>
+    <div class="work-controls glass" data-work-controls hidden>
+      <div class="filters" role="group" aria-label="Filter projects" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 6px">
+        {categories.map((category, index) => <button class="pill" type="button" data-filter={category} aria-pressed={index === 0 ? 'true' : 'false'}>{category}</button>)}
+      </div>
+      <span class="work-count" role="status" aria-live="polite" data-filter-count>{projects.length} projects</span>
+    </div>
+    <ol class="work-grid">
+      {projects.map(project => (
+        <li class="work-card" data-category={project.data.category} data-reveal data-video-host>
+          <a href={`/work/${project.id}/`} data-cursor="View">
+            <div class="work-card-media"><ProjectVisual id={project.id} variant={project.data.visual} title={project.data.title} /></div>
+            <div class="work-card-info">
+              <div>
+                <div class="work-card-meta">
+                  <span class={`chat-tag ${tagClass[project.data.category] ?? ''}`}>@{project.data.category.toLowerCase()}</span>
+                  {project.data.status === 'Concept' && <span class="tag">Concept</span>}
+                </div>
+                <h2>{project.data.title}</h2>
+                <p>{project.data.subtitle}</p>
+              </div>
+              <span class="card-arrow" aria-hidden="true"><Icon name="external" size={18} /></span>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <p class="work-note">A selection in progress — project visuals and fuller case studies are being added.</p>
+  </section>
+  <ContactSection />
+</BaseLayout>
+<script>
+  import { onPage } from '../../scripts/lifecycle';
+
+  onPage(signal => {
+    const controls = document.querySelector<HTMLElement>('[data-work-controls]');
+    const count = document.querySelector<HTMLElement>('[data-filter-count]');
+    if (!controls || !count) return;
+    controls.hidden = false;
+    const buttons = [...controls.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const cards = [...document.querySelectorAll<HTMLElement>('.work-card')];
+    buttons.forEach(button => button.addEventListener('click', () => {
+      const category = button.dataset.filter;
+      let visible = 0;
+      cards.forEach(card => {
+        card.hidden = category !== 'All work' && card.dataset.category !== category;
+        if (!card.hidden) visible++;
+      });
+      buttons.forEach(other => other.setAttribute('aria-pressed', String(other === button)));
+      count.textContent = `${visible} ${visible === 1 ? 'project' : 'projects'}`;
+      document.dispatchEvent(new CustomEvent('portfolio:projects-filtered', { detail: { cards: cards.filter(card => !card.hidden) } }));
+    }, { signal }));
+  });
+</script>

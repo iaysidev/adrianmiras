@@ -1,0 +1,30 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<footer class="footer">
+  <div class="container footer-top">
+    <p class="footer-tagline">Design meets purpose. <span class="dim">Code makes it work.</span></p>
+    <div class="footer-col">
+      <p>Index</p>
+      <a href="/">Home</a>
+      <a href="/work/">Work</a>
+      <a href="/#about">About</a>
+      <a href="/#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <p>Elsewhere</p>
+      <a href={`mailto:${site.email}`}>Email</a>
+      {site.github && <a href={site.github}>GitHub</a>}
+      {site.linkedin && <a href={site.linkedin}>LinkedIn</a>}
+      {site.resume && <a href={site.resume} download>Resume</a>}
+    </div>
+    <a class="back-top" href="#top" aria-label="Back to top" data-magnetic data-cursor="Top"><Icon name="arrow-up" /></a>
+  </div>
+  <div class="footer-wordmark" aria-hidden="true"><span class="footer-wordmark-inner">Adrian Miras</span></div>
+  <div class="container footer-bottom">
+    <span>© {new Date().getFullYear()} {site.fullName}</span>
+    <span>Built with Astro &amp; GSAP</span>
+    <span>Casiguran, PH · <span data-local-time>GMT+8</span></span>
+  </div>
+</footer>

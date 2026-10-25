@@ -1,0 +1,11 @@
+---
+// One page-wide control for decorative motion; the script below drives everything else.
+---
+<button class="motion-toggle mono" type="button" data-motion-toggle aria-pressed="false" hidden>
+  <span class="motion-toggle-icon" aria-hidden="true"></span>
+  <span data-motion-label>Pause motion</span>
+</button>
+<script>
+  import { initializeMotion } from '../scripts/motion';
+  initializeMotion();
+</script>

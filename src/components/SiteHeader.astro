@@ -1,0 +1,81 @@
+---
+import { site } from '../data/site';
+const path = Astro.url.pathname;
+const links = [
+  { label: 'Home', href: '/', current: path === '/' },
+  { label: 'Work', href: '/work/', current: path.startsWith('/work') },
+  { label: 'About', href: '/#about', current: false },
+  { label: 'Expertise', href: '/#expertise', current: false },
+  { label: 'Experience', href: '/#experience', current: false },
+  { label: 'Contact', href: '/#contact', current: false },
+];
+const nav = links.filter(link => ['Work', 'About', 'Expertise', 'Experience'].includes(link.label));
+---
+<header id="top" class="header">
+  <div class="nav-pill glass">
+    <a class="brand" href="/" aria-label="Adrian Miras — home"><span class="brand-mark" aria-hidden="true">AM</span><span aria-hidden="true">Adrian Miras</span></a>
+    <nav class="nav-links" aria-label="Main">
+      {nav.map(link => <a href={link.href} aria-current={link.current ? 'page' : undefined}>{link.label}</a>)}
+    </nav>
+    <a class="btn btn-white nav-cta" href="/#contact">Let’s talk</a>
+    <button class="menu-button" type="button" aria-haspopup="dialog" aria-controls="site-menu" aria-expanded="false" data-menu-open>
+      Menu <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+<dialog id="site-menu" class="menu" aria-label="Site menu">
+  <div class="menu-inner">
+    <div class="menu-top">
+      <span class="brand"><span class="brand-mark" aria-hidden="true">AM</span>Adrian Miras</span>
+      <button class="pill" type="button" data-menu-close>Close</button>
+    </div>
+    <nav aria-label="Menu">
+      <ol class="menu-links">
+        {links.map((link, index) => (
+          <li><a href={link.href} style={`--i: ${index}`} aria-current={link.current ? 'page' : undefined}><span>0{index + 1}</span>{link.label}</a></li>
+        ))}
+      </ol>
+    </nav>
+    <div class="menu-foot">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+      {site.github && <a href={site.github}>GitHub</a>}
+      {site.linkedin && <a href={site.linkedin}>LinkedIn</a>}
+      {site.resume && <a href={site.resume} download>Resume</a>}
+      <span>Casiguran, PH · <span data-local-time>GMT+8</span></span>
+    </div>
+  </div>
+</dialog>
+<noscript><style>.nav-links { display: flex !important; } .menu-button { display: none !important; }</style></noscript>
+<script>
+  import { onPage } from '../scripts/lifecycle';
+  import { getLenis } from '../scripts/motion/smooth-scroll';
+  import { site } from '../data/site';
+
+  onPage(signal => {
+    const dialog = document.querySelector<HTMLDialogElement>('#site-menu');
+    const open = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+    if (dialog && open) {
+      open.addEventListener('click', () => {
+        dialog.showModal();
+        open.setAttribute('aria-expanded', 'true');
+        getLenis()?.stop();
+      }, { signal });
+      dialog.querySelector('[data-menu-close]')?.addEventListener('click', () => dialog.close(), { signal });
+      dialog.addEventListener('close', () => {
+        open.setAttribute('aria-expanded', 'false');
+        getLenis()?.start();
+      }, { signal });
+      dialog.querySelectorAll('a').forEach(link => link.addEventListener('click', () => dialog.close(), { signal }));
+    }
+
+    const clocks = document.querySelectorAll<HTMLElement>('[data-local-time]');
+    const format = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: site.timeZone });
+    const tick = () => clocks.forEach(clock => { clock.textContent = format.format(new Date()); });
+    tick();
+    const timer = window.setInterval(tick, 30_000);
+    return () => {
+      window.clearInterval(timer);
+      if (dialog?.open) dialog.close();
+    };
+  });
+</script>

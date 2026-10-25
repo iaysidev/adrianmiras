@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CardArt, { type ArtVariant } from '../components/CardArt.astro';
+import Icon from '../components/Icon.astro';
+const scattered: { art: ArtVariant; style: string }[] = [
+  { art: 'print', style: 'left: 8%; top: 18%; --r: -14deg' },
+  { art: 'web', style: 'right: 9%; top: 14%; --r: 10deg; --d: -2s' },
+  { art: 'tourism', style: 'left: 14%; bottom: 10%; --r: 8deg; --d: -4s' },
+  { art: 'mobile', style: 'right: 14%; bottom: 8%; --r: -6deg; --d: -1s' },
+];
+---
+<BaseLayout title="Page Not Found — Adrian Miras">
+  <section class="lost container" aria-labelledby="lost-title">
+    {scattered.map(card => <div class="lost-card" style={card.style} aria-hidden="true"><CardArt variant={card.art} /></div>)}
+    <span class="eyebrow">A small detour</span>
+    <h1 id="lost-title" class="lost-title" data-split>404</h1>
+    <p class="lead center" data-reveal>This page may have moved, or the link took a wrong turn. There’s plenty to explore elsewhere.</p>
+    <div class="lost-actions" data-reveal>
+      <a class="btn" href="/work/" data-magnetic>Explore the work <Icon name="external" size={16} /></a>
+      <a class="btn btn-ghost" href="/">Back to home</a>
+    </div>
+  </section>
+</BaseLayout>

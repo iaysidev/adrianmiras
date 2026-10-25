@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectVisual from './ProjectVisual.astro';
+import Icon from './Icon.astro';
+interface Props { project: CollectionEntry<'projects'>; index?: number; }
+const { project, index = 0 } = Astro.props;
+const { data, id } = project;
+const tagClass: Record<string, string> = { Web: '', Product: 'is-white', Graphic: '', Editorial: 'is-grey', Branding: 'is-white' };
+---
+<article class="stack-card" style={`--i: ${index}`} data-video-host>
+  <div class="stack-inner">
+    <div class="stack-info">
+      <div>
+        <span class="eyebrow">{String(index + 1).padStart(2, '0')} — {data.category}{data.status === 'Concept' ? ' · Concept' : ''}</span>
+        <h3 class="headline headline-md"><strong>{data.title}</strong></h3>
+        <p class="lead">{data.subtitle}</p>
+      </div>
+      <div class="stack-tags">
+        <span class={`chat-tag ${tagClass[data.category] ?? ''}`}>@{data.category.toLowerCase()}</span>
+        {data.tags.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+      <a class="btn" href={`/work/${id}/`} data-cursor="View" style="justify-self: start; width: fit-content;">View case study <Icon name="external" size={16} /></a>
+    </div>
+    <div class="stack-media"><ProjectVisual id={id} variant={data.visual} title={data.title} /></div>
+    <span class="stack-dim" aria-hidden="true"></span>
+  </div>
+</article>

@@ -1,0 +1,50 @@
+---
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+---
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <span class="contact-backdrop" aria-hidden="true">Hello</span>
+  <div class="container">
+    <div class="contact-card">
+      {site.available && <span class="eyebrow"><span class="status-dot"></span>Available for remote opportunities</span>}
+      <h2 id="contact-title" class="headline headline-md" data-split>Let’s create something <span class="dim">worth showing.</span></h2>
+      <p class="lead center">Have a project, an opportunity, or just a good idea? I’d love to hear about it.</p>
+      <div class="contact-email">
+        <a class="contact-address" href={`mailto:${site.email}`}>{site.email}</a>
+        <button class="pill" type="button" data-copy={site.email}>Copy</button>
+      </div>
+      <div class="hero-actions">
+        <a class="btn btn-white" href={`mailto:${site.email}`} data-magnetic data-cursor="Say hi">Start a project <Icon name="external" size={16} /></a>
+        {site.resume && <a class="btn btn-ghost" href={site.resume} download>Download resume</a>}
+      </div>
+      <div class="contact-meta"><span>{site.location}</span><span>Local time <span data-local-time>GMT+8</span></span></div>
+    </div>
+  </div>
+  <p class="toast" role="status" aria-live="polite" data-toast></p>
+</section>
+<script>
+  import { onPage } from '../scripts/lifecycle';
+
+  onPage(signal => {
+    const toast = document.querySelector<HTMLElement>('[data-toast]');
+    let timer = 0;
+    const show = (message: string) => {
+      if (!toast) return;
+      toast.textContent = message;
+      toast.setAttribute('data-show', '');
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => toast.removeAttribute('data-show'), 2400);
+    };
+    document.querySelectorAll<HTMLButtonElement>('[data-copy]').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy ?? '');
+          show('Email copied to clipboard');
+        } catch {
+          show(button.dataset.copy ?? '');
+        }
+      }, { signal });
+    });
+    return () => window.clearTimeout(timer);
+  });
+</script>

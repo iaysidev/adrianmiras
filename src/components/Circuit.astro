@@ -1,0 +1,20 @@
+---
+// Decorative circuit traces with orange light pulses travelling toward the centre (Gcore style).
+// Pulses are a CSS stroke-dashoffset animation; the pause button and reduced motion stop them.
+const traces = [
+  { d: 'M0 120H260L320 180H470', t: 5.5, delay: 0 },
+  { d: 'M0 300H180L230 250H430', t: 6.5, delay: -2 },
+  { d: 'M0 470H300L360 410H480', t: 5, delay: -3.5 },
+  { d: 'M1200 110H930L870 170H730', t: 6, delay: -1 },
+  { d: 'M1200 300H1010L960 350H770', t: 5.2, delay: -4 },
+  { d: 'M1200 480H900L850 420H720', t: 7, delay: -2.6 },
+  { d: 'M600 0V60L560 100', t: 4.5, delay: -1.8 },
+  { d: 'M600 600V530L640 490', t: 4.8, delay: -3 },
+];
+const nodes = [[470, 180], [430, 250], [480, 410], [730, 170], [770, 350], [720, 420], [560, 100], [640, 490]];
+---
+<svg class="circuit" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  {traces.map(trace => <path class="circuit-trace" d={trace.d} />)}
+  {traces.map(trace => <path class="circuit-pulse" d={trace.d} pathLength="1000" style={`--t: ${trace.t}s; --d: ${trace.delay}s`} />)}
+  {nodes.map(([x, y]) => <circle class="circuit-node" cx={x} cy={y} r="3" />)}
+</svg>

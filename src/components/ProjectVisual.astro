@@ -1,0 +1,37 @@
+---
+import CardArt from './CardArt.astro';
+import { projectMedia } from '../data/site';
+type Variant = 'web' | 'mobile' | 'print' | 'editorial' | 'tourism';
+interface Props {
+  id: string;
+  title: string;
+  variant: Variant;
+  priority?: boolean;
+  /** `auto` plays the preview whenever visible; `hover` waits for the surrounding [data-video-host]. */
+  play?: 'auto' | 'hover';
+}
+const { id, title, variant, priority = false, play = 'hover' } = Astro.props;
+const media = projectMedia[id];
+const preview = media?.preview;
+---
+<div class="visual">
+  {media?.cover ? (
+    <img src={media.cover} alt={media.coverAlt} width="1600" height="1200" loading={priority ? 'eager' : 'lazy'} fetchpriority={priority ? 'high' : 'auto'} decoding="async" />
+  ) : (
+    <CardArt variant={variant} />
+  )}
+  {preview && (
+    <video data-video={play} muted loop playsinline preload="none" poster={preview.poster ?? media?.cover ?? undefined} aria-hidden="true">
+      {preview.webm && <source src={preview.webm} type="video/webm" />}
+      <source src={preview.mp4} type="video/mp4" />
+    </video>
+  )}
+  {!media?.cover && <span class="sr-only">{title}: illustrated placeholder. Project images will be added later.</span>}
+</div>
+
+<style>
+  .visual { position: relative; width: 100%; height: 100%; overflow: hidden; background: var(--bg); }
+  .visual > img, .visual > video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .visual > video { z-index: 6; opacity: 0; transition: opacity .5s; }
+  :global([data-playing]) .visual > video { opacity: 1; }
+</style>

@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CardCarousel from './CardCarousel.astro';
+import CardArt from './CardArt.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+interface Props { projects: CollectionEntry<'projects'>[]; }
+const { projects } = Astro.props;
+---
+<section class="hero" data-horizon="arc" aria-labelledby="hero-title">
+  <canvas class="horizon-canvas" data-horizon-canvas aria-hidden="true"></canvas>
+  <div class="horizon-css" aria-hidden="true"></div>
+  <div class="hero-copy">
+    {site.available && <span class="eyebrow hero-reveal" data-hero-in><Icon name="spark" size={14} />Open to remote opportunities</span>}
+    <h1 id="hero-title" class="headline hero-title hero-reveal" data-split="hero">
+      A place to display <span class="dim">my design <span class="chip-inline" aria-hidden="true"><CardArt variant="glass" /></span> &amp; code.</span>
+    </h1>
+    <p class="lead hero-reveal" data-hero-in>I’m Adrian — a multidisciplinary designer and frontend developer from Casiguran, Philippines, connecting visual design, technology and everything in between.</p>
+    <div class="hero-actions hero-reveal" data-hero-in>
+      <a class="btn" href="#work" data-magnetic>View my work <Icon name="arrow-down" size={18} /></a>
+      <a class="btn btn-ghost" href="#contact">Let’s talk</a>
+    </div>
+  </div>
+  <div class="hero-reveal" data-hero-in><CardCarousel projects={projects} /></div>
+</section>

@@ -1,0 +1,22 @@
+---
+import { toolGroups } from '../data/tools';
+const tools = toolGroups.flatMap(group => group.tools);
+const half = Math.ceil(tools.length / 2);
+const rows = [tools.slice(0, half), tools.slice(half)];
+const logo = (tool: (typeof tools)[number]) => `/images/logos/${tool.id}.${tool.extension ?? 'svg'}`;
+---
+<section id="tools" class="tools" aria-labelledby="tools-title">
+  <h2 id="tools-title" class="tools-head">The {tools.length} tools I use every day — across design, code, mobile and content.</h2>
+  <div class="marquee" aria-hidden="true">
+    {rows.map(row => (
+      <div class="marquee-track">
+        {[0, 1].map(() => (
+          <div class="marquee-group">
+            {row.map(tool => <span class="logo-chip"><img src={logo(tool)} alt="" width="40" height="40" loading="lazy" decoding="async" />{tool.name}</span>)}
+          </div>
+        ))}
+      </div>
+    ))}
+  </div>
+  <ul class="sr-only">{toolGroups.map(group => <li>{group.name}: {group.tools.map(tool => tool.name).join(', ')}</li>)}</ul>
+</section>

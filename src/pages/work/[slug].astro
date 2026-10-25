@@ -1,0 +1,75 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectVisual from '../../components/ProjectVisual.astro';
+import Icon from '../../components/Icon.astro';
+import { projectMedia } from '../../data/site';
+export async function getStaticPaths() {
+  const projects = (await getCollection('projects', ({ data }) => !data.draft)).sort((a, b) => a.data.order - b.data.order);
+  return projects.map((project, index) => ({
+    params: { slug: project.id },
+    props: { project, index, next: projects[(index + 1) % projects.length] },
+  }));
+}
+interface Props { project: CollectionEntry<'projects'>; index: number; next: CollectionEntry<'projects'>; }
+const { project, index, next } = Astro.props;
+const { data, id } = project;
+const { Content } = await render(project);
+const media = projectMedia[id];
+const tagClass: Record<string, string> = { Web: '', Product: 'is-white', Graphic: '', Editorial: 'is-grey', Branding: 'is-white' };
+---
+<BaseLayout title={`${data.title} — Adrian Miras`} description={data.summary}>
+  <article>
+    <header class="case-hero container">
+      <a class="pill" href="/work/"><span aria-hidden="true">←</span> All work</a>
+      <span class="eyebrow">{String(index + 1).padStart(2, '0')} · {data.category} — {data.status === 'Concept' ? 'Identity exploration' : 'Selected project'}</span>
+      <h1 class="headline case-title" data-split><strong>{data.title}</strong></h1>
+      <p class="lead center" data-reveal>{data.subtitle}</p>
+      <div class="case-tags" data-reveal>
+        <span class={`chat-tag ${tagClass[data.category] ?? ''}`}>@{data.category.toLowerCase()}</span>
+        {data.tags.map(tag => <span class="tag">{tag}</span>)}
+      </div>
+    </header>
+
+    <div class="case-cover" data-video-host>
+      <div class="case-cover-inner"><ProjectVisual id={id} variant={data.visual} title={data.title} priority play="auto" /></div>
+    </div>
+
+    <div class="case-layout container">
+      <aside aria-label="Project details">
+        <div class="case-sticky glass">
+          <dl>
+            <div><dt>The project</dt><dd>{data.summary}</dd></div>
+            <div><dt>My involvement</dt><dd>{data.contribution}</dd></div>
+            {data.tools.length > 0 && <div><dt>Tools</dt><dd class="tag-list">{data.tools.map(tool => <span class="tag">{tool}</span>)}</dd></div>}
+          </dl>
+          <p class="case-progress"><span class="status-dot"></span>Case study in progress</p>
+        </div>
+      </aside>
+      <div class="prose"><Content /></div>
+    </div>
+
+    {media?.gallery.length > 0 && (
+      <div class="case-gallery container">
+        {media.gallery.map(image => (
+          <figure class="case-figure" data-reveal>
+            <a class="case-figure-frame" href={image.src} data-parallax data-cursor="Open">
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" width="1600" height="1000" />
+            </a>
+            <figcaption>{image.caption}</figcaption>
+          </figure>
+        ))}
+      </div>
+    )}
+
+    <div class="container">
+      <a class="case-next" href={`/work/${next.id}/`} data-float-item data-cursor="Next">
+        <span class="eyebrow">Next project</span>
+        <span class="headline headline-md"><strong>{next.data.title}</strong></span>
+        <span class="lead">{next.data.subtitle}</span>
+        <span class="btn">View case study <Icon name="external" size={16} /></span>
+        <div class="case-next-media" data-float-media aria-hidden="true"><ProjectVisual id={next.id} variant={next.data.visual} title={next.data.title} /></div>
+      </a>
+    </div>
+  </article>
+</BaseLayout>

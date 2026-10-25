@@ -1,0 +1,16 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectCard from './ProjectCard.astro';
+import Icon from './Icon.astro';
+interface Props { projects: CollectionEntry<'projects'>[]; total: number; }
+const { projects, total } = Astro.props;
+---
+<section class="section container" id="work" aria-labelledby="work-title">
+  <header class="section-head">
+    <span class="eyebrow">Selected work · {String(projects.length).padStart(2, '0')}</span>
+    <h2 id="work-title" class="headline headline-md" data-split>Things I’ve <span class="dim">put into the world.</span></h2>
+    <p class="lead">Different disciplines, the same attention to detail — from interfaces and code to print and identity.</p>
+  </header>
+  <div class="stack">{projects.map((project, index) => <ProjectCard project={project} index={index} />)}</div>
+  <div class="work-all"><a class="btn btn-ghost" href="/work/">See all {total} projects <Icon name="external" size={16} /></a></div>
+</section>

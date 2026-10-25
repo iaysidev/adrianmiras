@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+*.log
+_backup-pre-redesign/
+.impeccable/hook.cache.json
+.vercel

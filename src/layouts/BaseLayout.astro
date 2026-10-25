@@ -1,0 +1,80 @@
+---
+import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import MotionController from '../components/MotionController.astro';
+import Cursor from '../components/Cursor.astro';
+import Loader from '../components/Loader.astro';
+import { site } from '../data/site';
+interface Props {
+  title?: string;
+  description?: string;
+  motion?: boolean;
+  page?: 'home' | 'page';
+}
+const {
+  title = 'Adrian Miras — Design, Code & Everything In Between',
+  description = 'Graphic & web designer and frontend developer based in the Philippines. Explore work across web, digital products, branding, and editorial design.',
+  motion = true,
+  page = 'page',
+} = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const social = new URL('/social-preview.svg', Astro.site ?? Astro.url.origin);
+---
+<!doctype html>
+<html lang="en" data-page={page}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a0a" />
+    {!site.readyToIndex && <meta name="robots" content="noindex, nofollow" />}
+    <title>{title}</title>
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Adrian Miras" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={social} />
+    <meta property="og:image:alt" content="Adrian Miras — Design, code & everything in between" />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={social} />
+    {motion && (
+      <script is:inline data-astro-rerun>
+        (() => {
+          const root = document.documentElement;
+          root.classList.add('js');
+          try {
+            const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduce || sessionStorage.getItem('am-motion-paused') === '1' || root.dataset.page !== 'home') return;
+            // Hide the hero until its entrance is ready (CSS reveals it after 3.6s regardless).
+            root.setAttribute('data-hero-pending', '');
+            if (!sessionStorage.getItem('am-intro-seen')) {
+              root.setAttribute('data-loader', '');
+              sessionStorage.setItem('am-intro-seen', '1');
+            }
+          } catch (error) { /* Storage unavailable: skip the intro. */ }
+        })();
+      </script>
+    )}
+    <ClientRouter />
+  </head>
+  <body data-motion-page={motion ? '' : undefined}>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {motion && <Cursor />}
+    {motion && page === 'home' && <Loader />}
+    <SiteHeader />
+    <main id="main"><slot /></main>
+    <SiteFooter />
+    {motion && <MotionController />}
+  </body>
+</html>

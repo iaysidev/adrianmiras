@@ -1,0 +1,79 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectVisual from './ProjectVisual.astro';
+import CardArt, { type ArtVariant } from './CardArt.astro';
+import Icon from './Icon.astro';
+interface Props { projects: CollectionEntry<'projects'>[]; }
+const { projects } = Astro.props;
+
+type Card = { title: string; kind: string; href: string; project?: CollectionEntry<'projects'>; art?: ArtVariant; tag?: [string, string] };
+const projectCards: Card[] = projects.map(project => ({ title: project.data.title, kind: project.data.category, href: `/work/${project.id}/`, project }));
+const extras: Card[] = [
+  { title: 'Brand identity', kind: 'Branding', href: '/work/', art: 'brand', tag: ['@brand', 'is-white'] },
+  { title: 'Motion & video', kind: 'Content', href: '/#expertise', art: 'motion' },
+  { title: 'Photography', kind: 'Content', href: '/#expertise', art: 'photo', tag: ['@lens', 'is-grey'] },
+  { title: 'Interface systems', kind: 'UI/UX', href: '/#expertise', art: 'glass' },
+  { title: 'Social campaigns', kind: 'Marketing', href: '/#expertise', art: 'print', tag: ['@social', ''] },
+  { title: 'Web builds', kind: 'Frontend', href: '/#expertise', art: 'web' },
+  { title: 'Publication design', kind: 'Editorial', href: '/#expertise', art: 'editorial' },
+];
+// Interleave projects with discipline cards; the 3D arc needs at least 12 cards to wrap out of sight.
+const cards: Card[] = [];
+for (let index = 0; cards.length < 12; index++) {
+  if (projectCards[index]) cards.push({ ...projectCards[index], tag: index === 0 ? ['@code', ''] : index === 2 ? ['@print', 'is-white'] : undefined });
+  if (extras[index]) cards.push(extras[index]);
+  if (!projectCards[index] && !extras[index]) break;
+}
+---
+<div class="carousel" data-carousel aria-label="Featured work and disciplines">
+  <div class="carousel-stage" data-carousel-stage>
+    <ul class="carousel-ring">
+      {cards.map(card => (
+        <li class="carousel-card" data-carousel-card>
+          <a class="carousel-link" href={card.href} data-cursor="View">
+            <div class="carousel-media">
+              {card.project ? <ProjectVisual id={card.project.id} variant={card.project.data.visual} title={card.project.data.title} /> : <CardArt variant={card.art!} />}
+            </div>
+            <span class="carousel-caption"><span class="carousel-title">{card.title}</span><span class="carousel-kind">{card.kind}</span></span>
+          </a>
+          {card.tag && <span class={`chat-tag carousel-tag ${card.tag[1]}`} aria-hidden="true">{card.tag[0]}</span>}
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="carousel-controls">
+    <button class="carousel-button" type="button" data-carousel-prev aria-label="Previous card"><Icon name="arrow" size={18} /></button>
+    <span class="carousel-hint">Drag to explore</span>
+    <button class="carousel-button" type="button" data-carousel-next aria-label="Next card"><Icon name="arrow" size={18} /></button>
+  </div>
+</div>
+
+<style>
+  .carousel { --card-w: clamp(190px, 19vw, 260px); position: relative; margin-top: clamp(28px, 5vw, 64px); }
+  .carousel-ring { display: flex; gap: 18px; overflow-x: auto; padding: 24px var(--gutter) 40px; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .carousel-ring::-webkit-scrollbar { display: none; }
+  .carousel-card { position: relative; flex: 0 0 auto; width: var(--card-w); scroll-snap-align: center; }
+  .carousel-link { position: relative; display: block; overflow: hidden; border-radius: 24px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: 0 40px 80px -30px rgb(0 0 0 / .9); transition: transform .5s var(--ease), border-color .5s; }
+  .carousel-link:hover { transform: translateY(-10px); border-color: rgb(255 91 31 / .5); }
+  .carousel-media { position: relative; aspect-ratio: 3 / 4; }
+  .carousel-caption {
+    position: absolute; left: 10px; right: 10px; bottom: 10px; z-index: 6; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    padding: 10px 12px; border-radius: 14px; background: rgb(10 10 10 / .72); box-shadow: inset 0 0 0 1px var(--line-strong);
+    -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); text-align: left; font: 600 13px/1.2 var(--display); color: var(--white);
+  }
+  .carousel-kind { flex: none; color: var(--muted); font-size: 11.5px; font-weight: 500; }
+  .carousel-tag { position: absolute; top: -12px; left: 14px; z-index: 7; }
+  .carousel-controls { display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .carousel-button { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line-strong); transition: background-color .3s, box-shadow .3s; }
+  .carousel-button:first-child :global(svg) { rotate: 180deg; }
+  .carousel-button:hover { background: var(--accent); box-shadow: 0 0 24px var(--accent-glow); }
+  .carousel-hint { color: var(--muted); font: 500 13px/1 var(--display); }
+
+  /* 3D arc, enabled by the motion script (data-3d). */
+  .carousel[data-3d] .carousel-stage { position: relative; height: calc(var(--card-w) * 1.55); perspective: 1400px; perspective-origin: 50% 35%; touch-action: pan-y; cursor: grab; }
+  .carousel[data-3d] .carousel-stage:active { cursor: grabbing; }
+  .carousel[data-3d] .carousel-ring { position: absolute; inset: 0; display: block; overflow: visible; padding: 0; transform-style: preserve-3d; }
+  .carousel[data-3d] .carousel-card { position: absolute; left: 50%; top: 50%; margin: calc(var(--card-w) * -.6667) 0 0 calc(var(--card-w) / -2); backface-visibility: hidden; }
+  .carousel[data-3d] .carousel-card[data-front] .carousel-link { border-color: rgb(255 91 31 / .6); box-shadow: 0 40px 80px -30px rgb(0 0 0 / .9), 0 0 40px -6px var(--accent-glow); }
+  @media (max-width: 760px) { .carousel { --card-w: 180px; } .carousel-hint { display: none; } }
+</style>
