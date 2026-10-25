@@ -48,7 +48,16 @@ export function initCarousel(desktop: boolean) {
     if (auto) state.offset += delta / 1000 * 0.12;
     render();
   };
-  gsap.ticker.add(drift);
+  // The per-frame loop only runs while the carousel is on screen.
+  let ticking = false;
+  const setTicking = (on: boolean) => {
+    if (on === ticking) return;
+    ticking = on;
+    if (on) gsap.ticker.add(drift); else gsap.ticker.remove(drift);
+  };
+  const visibility = new IntersectionObserver(entries => setTicking(entries.some(entry => entry.isIntersecting)), { rootMargin: '100px 0px' });
+  visibility.observe(root);
+  setTicking(true);
   const loop = { play: () => { auto = true; }, pause: () => { auto = false; } };
   const unregister = registerLoop(loop);
   const holdAuto = () => {
@@ -94,7 +103,8 @@ export function initCarousel(desktop: boolean) {
   render();
 
   return () => {
-    gsap.ticker.remove(drift);
+    visibility.disconnect();
+    setTicking(false);
     unregister();
     window.clearTimeout(resumeTimer);
     drag?.kill();

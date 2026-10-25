@@ -15,7 +15,7 @@ export function buildSections({ desktop }: { desktop: boolean }) {
   hero();
   statement();
   stackedWork(desktop);
-  orbit();
+  orbit(desktop);
   marquee(cleanups);
   spotlight();
   caseStudy();
@@ -53,13 +53,15 @@ function stackedWork(desktop: boolean) {
 }
 
 /** Floating tiles around the expertise heading drift at their own parallax speeds. */
-function orbit() {
+function orbit(desktop: boolean) {
   const section = one('.orbit');
   if (!section) return;
+  // On phones the tiles sit at the section edges, so they drift less to stay clear of the copy.
+  const reach = desktop ? 110 : 36;
   all('[data-speed]', section).forEach(tile => {
     const speed = Number(tile.dataset.speed) || 1;
-    gsap.fromTo(tile, { y: speed * 110 }, {
-      y: -speed * 110, ease: 'none',
+    gsap.fromTo(tile, { y: speed * reach }, {
+      y: -speed * reach, ease: 'none',
       scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
     });
   });

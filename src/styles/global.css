@@ -436,3 +436,95 @@ a:hover .card-arrow { background: var(--accent); box-shadow: 0 0 24px var(--acce
 }
 @keyframes vt-out { to { opacity: 0; transform: translateY(-24px); } }
 @keyframes vt-in { from { opacity: 0; transform: translateY(40px); } }
+
+/* ---------- Phones: spacing, tap targets, readability and lighter rendering ---------- */
+@media (max-width: 760px) {
+  .section { padding-block: 72px; }
+  .section-head { gap: 16px; margin-bottom: 40px; }
+  .headline-md { font-size: clamp(30px, 8.4vw, 40px); }
+  .lead { font-size: 16px; }
+
+  /* Header: 44px tap targets; the floating pause button moves into the menu. */
+  .header { top: 10px; }
+  .nav-pill { padding: 5px; border-radius: 16px; }
+  .brand-mark { width: 40px; height: 40px; border-radius: 12px; }
+  .menu-button { height: 44px; padding: 0 18px; border-radius: 12px; }
+  .motion-toggle { display: none; }
+  .menu-links a { min-height: 56px; font-size: clamp(40px, 12vw, 56px); }
+  .menu-foot a, .menu-foot button { min-height: 44px; display: inline-flex; align-items: center; }
+
+  /* Hero */
+  .hero { padding-top: 92px; padding-bottom: 24px; }
+  .hero-copy { gap: 16px; }
+  .hero-actions { width: 100%; }
+  .hero-actions .btn { flex: 1 1 140px; }
+
+  /* Tools strip */
+  .tools { padding-block: 40px; }
+  .tools-head { padding-inline: var(--gutter); margin-bottom: 18px; font-size: 14px; }
+  .logo-chip { height: 50px; padding: 0 18px 0 8px; font-size: 14px; }
+  .logo-chip img { width: 34px; height: 34px; padding: 7px; }
+
+  /* About statement */
+  .paper .section-head { margin-bottom: 24px; }
+  .statement { font-size: clamp(26px, 7.4vw, 34px); }
+
+  /* Selected work: compact stacked cards */
+  .stack { gap: 20px; }
+  .stack-inner { gap: 16px; padding: 10px; border-radius: 26px; }
+  .stack-media { border-radius: 18px; }
+  .stack-info { gap: 18px; padding: 8px 10px 12px; }
+  .stack-info .headline { margin-top: 14px; }
+  .stack-tags .tag:nth-of-type(n + 3) { display: none; }
+  .stack-info .btn { width: 100% !important; justify-self: stretch !important; }
+
+  /* Expertise: tiles move to the top and bottom edges, clear of the copy */
+  .orbit-stage { padding-block: 170px 160px; }
+  .orbit-tile { left: var(--mx, var(--x)); top: var(--my, var(--y)); }
+  .service-card { min-height: 0; gap: 28px; padding: 24px; }
+  .circuit-pulse, .circuit-node { filter: none; }
+
+  /* Experience: less empty planet below the cards */
+  .spotlight { padding-block: 80px 220px; }
+  .exp-card { padding: 22px; }
+
+  /* Approach */
+  .bento-feature { min-height: 300px; padding: 24px; }
+  .bento-item { padding: 22px; }
+
+  /* Contact */
+  .contact { padding-block: 120px 48px; }
+  .contact-card { gap: 18px; padding: 40px 20px 120px; border-radius: 28px; }
+  .contact-address { min-height: 44px; display: inline-flex; align-items: center; font-size: 19px; }
+  .contact-email .pill { height: 44px; }
+  .contact-card .hero-actions .btn { flex: 1 1 100%; }
+
+  /* Footer: comfortable tap targets */
+  .footer-col { gap: 0; }
+  .footer-col a { min-height: 40px; display: inline-flex; align-items: center; }
+  .footer-bottom { padding-bottom: 32px; }
+
+  /* Lighter rendering: frosted blur is costly on phones, so glass panels go opaque. */
+  .glass, .exp-card { -webkit-backdrop-filter: none; backdrop-filter: none; background: #141414; }
+  .nav-pill { background: rgb(20 20 20 / .96); }
+}
+
+/* Work index on phones: filters become one swipeable row so the sticky bar stays slim. */
+@media (max-width: 760px) {
+  .work-index { padding-top: 104px; }
+  .work-index-head { margin-bottom: 24px; }
+  .work-controls { top: 72px; width: 100%; margin-bottom: 28px; padding: 6px; border-radius: 16px; justify-content: flex-start; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .work-controls::-webkit-scrollbar { display: none; }
+  .work-controls .filters { flex-wrap: nowrap !important; justify-content: flex-start !important; }
+  .work-controls .pill { flex: none; height: 40px; }
+  .work-count { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
+  .work-grid { gap: 16px; }
+  .work-card > a { padding: 10px; border-radius: 24px; }
+
+  /* Case study */
+  .case-hero { padding-top: 104px; padding-bottom: 32px; }
+  .case-layout { padding-block: 56px; gap: 20px; }
+  .case-sticky { padding: 22px; }
+  .prose { padding: 24px 20px; border-radius: 24px; font-size: 17px; }
+  .case-next { padding: 56px 20px; border-radius: 28px; }
+}

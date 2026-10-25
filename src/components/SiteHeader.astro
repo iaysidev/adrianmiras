@@ -43,6 +43,9 @@ const nav = links.filter(link => ['Work', 'About', 'Expertise', 'Experience'].in
       {site.linkedin && <a href={site.linkedin}>LinkedIn</a>}
       {site.resume && <a href={site.resume} download>Resume</a>}
       <span>Casiguran, PH · <span data-local-time>GMT+8</span></span>
+      <button class="pill" type="button" data-motion-toggle aria-pressed="false" hidden>
+        <span class="motion-toggle-icon" aria-hidden="true"></span><span data-motion-label>Pause motion</span>
+      </button>
     </div>
   </div>
 </dialog>

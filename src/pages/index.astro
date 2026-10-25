@@ -23,15 +23,15 @@ const principles = [
   { title: 'Design for the real screen.', copy: 'Consider the content, the device, and the person on the other side of it.' },
   { title: 'Refine what matters.', copy: 'Pay attention to alignment, readability, consistency, and how the experience performs.' },
 ];
-type Tile = { x: string; y: string; size: number; speed: number; rotate: number; logo?: string; art?: ArtVariant; optional?: boolean };
+type Tile = { x: string; y: string; size: number; speed: number; rotate: number; logo?: string; art?: ArtVariant; optional?: boolean; mobile?: [string, string] };
 const tiles: Tile[] = [
-  { x: '6%', y: '12%', size: 96, speed: 1.4, rotate: -8, logo: 'figma' },
-  { x: '15%', y: '56%', size: 124, speed: 0.8, rotate: 6, art: 'print' },
+  { x: '6%', y: '12%', size: 96, speed: 1.4, rotate: -8, logo: 'figma', mobile: ['6%', '28px'] },
+  { x: '15%', y: '56%', size: 124, speed: 0.8, rotate: 6, art: 'print', mobile: ['8%', 'calc(100% - 118px)'] },
   { x: '4%', y: '84%', size: 76, speed: 1.8, rotate: -4, logo: 'react', optional: true },
   { x: '27%', y: '4%', size: 70, speed: 2.2, rotate: 10, logo: 'photoshop', optional: true },
-  { x: '78%', y: '6%', size: 112, speed: 1.1, rotate: 8, art: 'mobile' },
+  { x: '78%', y: '6%', size: 112, speed: 1.1, rotate: 8, art: 'mobile', mobile: ['72%', '10px'] },
   { x: '90%', y: '40%', size: 80, speed: 1.9, rotate: -10, logo: 'kotlin', optional: true },
-  { x: '81%', y: '68%', size: 130, speed: 0.7, rotate: -6, art: 'editorial' },
+  { x: '81%', y: '68%', size: 130, speed: 0.7, rotate: -6, art: 'editorial', mobile: ['66%', 'calc(100% - 126px)'] },
   { x: '67%', y: '88%', size: 72, speed: 2, rotate: 6, logo: 'illustrator', optional: true },
   { x: '38%', y: '90%', size: 84, speed: 1.3, rotate: -3, art: 'brand', optional: true },
   { x: '61%', y: '2%', size: 74, speed: 1.6, rotate: 4, logo: 'premiere-pro', optional: true },
@@ -63,7 +63,7 @@ const tiles: Tile[] = [
     <div class="orbit-stage">
       <Circuit />
       {tiles.map((tile, index) => (
-        <div class="orbit-tile" style={`--x: ${tile.x}; --y: ${tile.y}; --s: ${tile.size}px`} data-speed={tile.speed} data-optional={tile.optional ? '' : undefined} aria-hidden="true">
+        <div class="orbit-tile" style={`--x: ${tile.x}; --y: ${tile.y}; --s: ${tile.size}px${tile.mobile ? `; --mx: ${tile.mobile[0]}; --my: ${tile.mobile[1]}` : ""}`} data-speed={tile.speed} data-optional={tile.optional ? '' : undefined} aria-hidden="true">
           <div class="orbit-tile-inner" style={`--r: ${tile.rotate}deg; --d: ${index * -0.6}s`}>
             {tile.logo ? <img src={`/images/logos/${tile.logo}.svg`} alt="" width="56" height="56" loading="lazy" /> : <span style="position: relative; display: block; width: 100%; height: 100%"><CardArt variant={tile.art!} /></span>}
           </div>

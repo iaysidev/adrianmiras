@@ -101,7 +101,8 @@ export function createHorizon(canvas: HTMLCanvasElement, mode: HorizonMode = 'pl
   let running = false;
 
   const resize = () => {
-    const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+    // The glow is soft, so phones render it at a lower resolution to save battery.
+    const ratio = Math.min(window.devicePixelRatio || 1, window.innerWidth < 760 ? 1 : 1.5);
     const width = Math.max(1, Math.round(canvas.clientWidth * ratio));
     const height = Math.max(1, Math.round(canvas.clientHeight * ratio));
     if (canvas.width !== width || canvas.height !== height) {
