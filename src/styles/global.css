@@ -403,12 +403,23 @@ a:hover .card-arrow { background: var(--accent); box-shadow: 0 0 24px var(--acce
 .prose ul { display: grid; gap: 8px; padding-left: 1.2em; list-style: disc; }
 .prose blockquote { padding: 24px 28px; border-radius: 24px; background: #fff; font: 500 22px/1.45 var(--display); letter-spacing: -.02em; }
 .prose a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
-.case-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; padding-bottom: clamp(80px, 10vw, 150px); }
-.case-figure:first-child { grid-column: 1 / -1; }
-.case-figure { display: grid; gap: 12px; }
-.case-figure-frame { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); }
-.case-figure-frame img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; object-fit: cover; }
+.case-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+/* Masonry columns keep posters, carousels and screenshots at their own proportions — artwork is never cropped. */
+.case-gallery { columns: 2; column-gap: 24px; padding-bottom: clamp(80px, 10vw, 150px); }
+.case-figure { display: grid; gap: 12px; margin-bottom: 32px; break-inside: avoid; }
+.case-figure-frame { display: block; overflow: hidden; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); transition: border-color .3s; }
+.case-figure-frame:hover { border-color: var(--line-strong); }
+.case-figure-frame img { width: 100%; height: auto; }
 .case-figure figcaption { color: var(--muted); font-size: 14px; }
+.case-reels { padding-bottom: clamp(80px, 10vw, 150px); }
+.reel-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+.reel { display: grid; align-content: start; gap: 12px; }
+.reel video { width: 100%; aspect-ratio: 9 / 16; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); object-fit: cover; }
+.reel figcaption { color: var(--muted); font-size: 14px; }
+.reel-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin-top: 40px; }
+.case-gallery.is-dense { columns: 3; }
+@media (max-width: 1000px) { .reel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .case-gallery.is-dense { columns: 2; } }
+@media (max-width: 560px) { .case-gallery.is-dense { columns: 1; } }
 .case-next {
   position: relative; isolation: isolate; display: grid; justify-items: center; gap: 14px; margin-bottom: clamp(60px, 8vw, 110px); padding: clamp(60px, 8vw, 110px) 24px;
   overflow: hidden; border-radius: 36px; background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow-lg); text-align: center;
@@ -416,7 +427,7 @@ a:hover .card-arrow { background: var(--accent); box-shadow: 0 0 24px var(--acce
 .case-next::after { content: ''; position: absolute; left: -10%; right: -10%; bottom: -80%; z-index: -1; height: 120%; background: radial-gradient(50% 50% at 50% 50%, rgb(255 240 230 / .85), rgb(255 91 31 / .55) 35%, transparent 70%); pointer-events: none; }
 .case-next-media { position: absolute; left: 0; top: 0; z-index: 4; width: clamp(240px, 24vw, 380px); aspect-ratio: 4 / 3; overflow: hidden; border-radius: 20px; pointer-events: none; opacity: 0; box-shadow: var(--shadow-lg); }
 @media (hover: none) { .case-next-media { display: none; } }
-@media (max-width: 900px) { .case-layout { grid-template-columns: 1fr; } .case-sticky { position: static; } .case-cover { height: 64svh; } .case-gallery { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .case-layout { grid-template-columns: 1fr; } .case-sticky { position: static; } .case-cover { height: 64svh; } .case-gallery { columns: 1; } }
 
 /* ---------- 404 ---------- */
 .lost { position: relative; min-height: 100svh; display: grid; place-content: center; justify-items: center; gap: 22px; padding-block: 140px 80px; text-align: center; }

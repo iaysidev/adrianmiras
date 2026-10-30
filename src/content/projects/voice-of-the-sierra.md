@@ -1,34 +1,25 @@
 ---
 title: The Voice of the Sierra
 subtitle: Giving stories a stronger visual voice.
-summary: Publication and digital content work from a student-led newsroom, exploring typography, photography, and information hierarchy.
+summary: Features, news, sports and event coverage, printed publications and staff apparel for the student publication of Aurora State College of Technology.
 category: Editorial
 tags: [Editorial design, Publication, Digital content]
-order: 4
+order: 6
 visual: editorial
-contribution: Editor-in-Chief. Individual design contributions and publication-team credits will accompany the selected work.
+contribution: Editor-in-Chief. Editorial direction, content development and publication production with the newsroom team.
 ---
 ## Every story needs a way in.
 
-The Voice of the Sierra is the student publication of Aurora State College of Technology. The work brings together editorial layouts, publication materials, and digital content in a collaborative newsroom setting.
+The Voice of the Sierra is the official student publication of Aurora State College of Technology. As Editor-in-Chief, I lead editorial direction and production, and the publication's visuals carry a consistent voice from print spreads to daily social posts.
 
-As Editor-in-Chief, my experience includes editorial direction, content development, and publication production.
+## Features with a point of view
 
-## Structure that supports the story
+Feature layouts such as "Tides of Triumph" — on Baler's surfing heritage — use photography, an editorial serif and generous space to let a story breathe. Commemorative, editorial and literary posts each get their own treatment while staying recognisably part of the same publication.
 
-The selected work will show how typography, photography, and information hierarchy shape a reading experience. Actual covers and page spreads will provide the context for discussing those decisions.
+## Coverage, on deadline
 
-The finished presentation will also describe the production workflow and credit the team members involved in the selected pieces.
+Sports and culture coverage moves fast. For the CAASUC III Regional Culture and the Arts Festival, the team worked from a gold, Baybayin-inspired identity built around the word *Bitu*, so results, quotes and performances could be published quickly and still look unified. The "Lookout" series did the same for SCUAA III sports.
 
-## Evidence to explore
+## Beyond the screen
 
-- Publication covers and representative page spreads
-- Close-up examples of typography and layout grids
-- Editorial photographs and digital publication assets
-- Production context and individual contributions
-
-## Learning through production
-
-The accompanying notes will reflect on real editorial work: balancing creative decisions with deadlines, content requirements, and collaboration.
-
-> The visual above is a layout placeholder. Actual publication pages, team credits, and production details will be added with the final assets.
+The work extends to printed publication spreads and to apparel: the Editor-in-Chief shirt and several press-shirt options for the staff.

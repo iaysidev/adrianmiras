@@ -17,6 +17,7 @@ const projects = defineCollection({
     visual: z.enum(['web', 'mobile', 'print', 'editorial', 'tourism']),
     contribution: z.string(),
     tools: z.array(z.string()).default([]),
+    links: z.array(z.object({ label: z.string(), href: z.url() })).default([]),
   }),
 });
 

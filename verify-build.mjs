@@ -40,7 +40,7 @@ for (const [file, html] of texts) {
     references++;
   }
 }
-assert.equal(pages.length, 8, 'Expected homepage, work index, five case studies, and 404');
+assert.equal(pages.length, 12, 'Expected homepage, work index, nine case studies, and 404');
 assert.equal(failures.length, 0, failures.join('\n'));
 console.log(`Verified ${pages.length} HTML pages and ${references} local file/anchor references.`);
 

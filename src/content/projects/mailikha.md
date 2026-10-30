@@ -1,32 +1,31 @@
 ---
 title: Mailikha Printing House
 subtitle: Ideas that move from screen to print.
-summary: A selection of social media materials and print-oriented designs, connecting clear communication with consistency across formats.
+summary: Social media campaigns, educational carousels, product catalogues, personalised print pieces and short-form video for a printing house in Baler, Aurora.
 category: Graphic
-tags: [Graphic design, Social media, Print layout]
-order: 3
+tags: [Social media, Campaign design, Print, Short-form video]
+order: 4
 visual: print
-contribution: Layout Artist & Social Media Manager. Detailed responsibilities will accompany each selected piece.
+contribution: Layout Artist & Social Media Manager. I design the posts and campaigns, lay out print work for customers and produce the reels.
 ---
-## One idea. More than one format.
+## One brand, many formats.
 
-Work at Mailikha Printing House brings graphic design, print layouts, and social media content into the same workflow. The focus is on creating visuals that communicate clearly and feel consistent across different uses.
+Mailikha is a printing house in Baler, Aurora. My work covers the whole path of an idea: the social posts that bring customers in, the layouts that go to the printer, and the reels that show the shop at work.
 
-## From a design file to an everyday touchpoint
+## Chapter 6: a month-long anniversary
 
-This collection will bring together actual brand graphics, social media materials, and print layouts. Each selected piece will include its context, format, and my contribution.
+For Mailikha's sixth year, I designed a full August campaign around the idea of a new "chapter": a month-long promo, a flash-deal calendar for every sixth day, a stamp-card "Chapter Card" that customers complete for an anniversary gift set, and live hunt updates as the giveaway notebooks ran out. Each post shares the same notebook-and-grid world, so the campaign reads as one story.
 
-Where shareable, supporting examples will show how a visual direction carries through related posts and printed materials.
+## Teaching, not just selling
 
-## Evidence to explore
+**Mailikha Notes** is an educational series that answers the questions customers ask most — paper sizes, sticker sizes, what to check before sending a file. The illustrated, hand-drawn style makes printing basics easy to follow.
 
-- Selected social media graphics and format adaptations
-- Print-oriented materials and layout details
-- Related designs that demonstrate visual consistency
-- Content planning or short-form video examples where available
+**Brand Almost Anything** is a clean catalogue of where embossed stickers work best — glass, plastic and paper cups, cosmetic bottles, food containers — with features, best uses and compatible surfaces for each.
 
-## What the work communicates
+## Everyday posts and personal pieces
 
-The final presentation will focus on observable design decisions and production work. Any campaign feedback or results will be included only when supported by available evidence.
+Alongside campaigns, I produce announcements, a calm new-year series photographed inside the shop, event coverage for Pop Haus, and personalised pieces such as wedding sticker packs and matching temporary tattoos.
 
-> The visual above is a layout placeholder. Actual Mailikha designs and their project details are being compiled.
+## Reels
+
+Short vertical videos show the work being made: onsite Instax printing, souvenir sticker packs, name keychains and custom shirts.

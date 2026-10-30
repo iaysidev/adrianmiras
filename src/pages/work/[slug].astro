@@ -29,6 +29,11 @@ const tagClass: Record<string, string> = { Web: '', Product: 'is-white', Graphic
         <span class={`chat-tag ${tagClass[data.category] ?? ''}`}>@{data.category.toLowerCase()}</span>
         {data.tags.map(tag => <span class="tag">{tag}</span>)}
       </div>
+      {data.links.length > 0 && (
+        <div class="case-links" data-reveal>
+          {data.links.map((link, i) => <a class={i === 0 ? 'btn' : 'btn btn-ghost'} href={link.href} target="_blank" rel="noopener">{link.label} <Icon name="external" size={16} /></a>)}
+        </div>
+      )}
     </header>
 
     <div class="case-cover" data-video-host>
@@ -43,18 +48,43 @@ const tagClass: Record<string, string> = { Web: '', Product: 'is-white', Graphic
             <div><dt>My involvement</dt><dd>{data.contribution}</dd></div>
             {data.tools.length > 0 && <div><dt>Tools</dt><dd class="tag-list">{data.tools.map(tool => <span class="tag">{tool}</span>)}</dd></div>}
           </dl>
-          <p class="case-progress"><span class="status-dot"></span>Case study in progress</p>
+          {!media?.cover && <p class="case-progress"><span class="status-dot"></span>Case study in progress</p>}
         </div>
       </aside>
       <div class="prose"><Content /></div>
     </div>
 
+    {media?.reels && media.reels.length > 0 && (
+      <section class="case-reels container" aria-labelledby="reels-title">
+        <div class="section-head">
+          <span class="eyebrow">Short-form video</span>
+          <h2 id="reels-title" class="headline headline-md" data-split>Reels <span class="dim">from the shop floor.</span></h2>
+        </div>
+        <div class="reel-grid">
+          {media.reels.map(reel => (
+            <figure class="reel" data-reveal>
+              <video controls playsinline preload="none" poster={reel.poster} aria-label={reel.caption}>
+                <source src={reel.mp4} type="video/mp4" />
+              </video>
+              <figcaption>{reel.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+        {media.reelLinks && media.reelLinks.length > 0 && (
+          <div class="reel-links">
+            <span class="eyebrow">Watch on Facebook</span>
+            {media.reelLinks.map((href, i) => <a class="pill" href={href} target="_blank" rel="noopener">Reel {String(i + 1).padStart(2, '0')} <span aria-hidden="true">↗</span></a>)}
+          </div>
+        )}
+      </section>
+    )}
+
     {media?.gallery.length > 0 && (
-      <div class="case-gallery container">
+      <div class:list={['case-gallery container', { 'is-dense': media.gallery.length > 6 }]}>
         {media.gallery.map(image => (
           <figure class="case-figure" data-reveal>
-            <a class="case-figure-frame" href={image.src} data-parallax data-cursor="Open">
-              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" width="1600" height="1000" />
+            <a class="case-figure-frame" href={image.src} target="_blank" rel="noopener" data-cursor="Open">
+              <img src={image.src} alt={image.alt} loading="lazy" decoding="async" width={image.width} height={image.height} />
             </a>
             <figcaption>{image.caption}</figcaption>
           </figure>

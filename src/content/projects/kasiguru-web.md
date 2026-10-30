@@ -1,34 +1,29 @@
 ---
-title: KasiGuru
-subtitle: A digital home for a living language.
-summary: A supporting web-based system for a Kasiguranin language-learning application, connecting the learning experience with its administration.
+title: KasiGuru Web
+subtitle: The system that keeps the dictionary right.
+summary: The web side of KasiGuru — a moderation console for admins and verifiers, and the public site where people download the app.
 category: Web
-tags: [Web development, Responsive design, UI/UX]
-order: 1
+tags: [Web development, Admin interface, UI/UX]
+order: 5
 visual: web
-contribution: Team project. A detailed breakdown of my individual contributions will be added with the final case study.
+contribution: Team project. I led it and worked across UI/UX design, illustration, frontend development and the web admin system.
+tools: [TypeScript, Preact, Vite, Firebase]
+links:
+  - label: Visit the download site
+    href: https://kasiguru-download.vercel.app/
 ---
-## Language, culture, and connection.
+## Behind every word, a check.
 
-KasiGuru is a Kasiguranin language-learning project bringing together education, technology, and playful visual design. The web-based system supports the wider mobile learning experience.
+A language-learning app is only as good as its words. The KasiGuru moderation console is where admins and verifiers review entries before they reach learners, so that spelling, meaning and pronunciation stay accurate.
 
-This case study focuses on the web side of the project: its administration interface, page structure, and connection to the language-learning application.
+Team members sign in with Google or with an email and password, and admins add new verifiers from the Team page.
 
-## The web experience
+## The public front door
 
-The full case study will bring together desktop and mobile screenshots, interface details, and a walkthrough of the supporting system. These assets are being compiled.
+The download site introduces the project — why the language matters, what is inside the app and a sample of its words — and offers two ways in: the Android APK, or the same app in the browser with the same account and progress.
 
-The aim is to show how the pages work together and explain the design and development decisions behind them, with clear attribution for my contribution to the team project.
-
-## Evidence to explore
-
-- Administration portal and representative page views
-- Desktop and small-screen layouts
-- Components and interface states
-- A system workflow and confirmed project technologies
+It shares the app's visual language: a dark interface, bright green accents and Jepjep the frog.
 
 ## A connected project
 
-KasiGuru also includes a mobile learning experience and visual identity. [Explore the mobile side of the project](/work/kasiguru-mobile/).
-
-> The visual above is a layout placeholder. Actual screens, project dates, individual contributions, and learnings will be added as the case study is completed.
+The web system supports the KasiGuru learning app. [Explore the mobile app](/work/kasiguru-mobile/).

@@ -1,34 +1,38 @@
 ---
-title: KasiGuru Mobile
-subtitle: Learning a language, one interaction at a time.
-summary: A Kasiguranin language-learning application combining a mobile learning experience with character identity and illustrated learning assets.
+title: KasiGuru
+subtitle: Learning a language, one word at a time.
+summary: A free, gamified app for learning Kasiguranin, the endangered language of Casiguran, Aurora — over 1,200 words with IPA pronunciation, checked by the people who speak it.
 category: Product
-tags: [Mobile application, UI/UX, Visual identity]
-order: 2
+tags: [Mobile application, UI/UX, Illustration]
+order: 1
 visual: mobile
-contribution: Team project. Specific interface, development, and visual contributions will be documented with the final assets.
+contribution: Team project. I led it and worked across UI/UX design, illustration, frontend development and the web admin system.
+tools: [Kotlin, Jetpack Compose, Firebase, TypeScript]
+links:
+  - label: Get the app
+    href: https://kasiguru-download.vercel.app/
+  - label: Open in the browser
+    href: https://kasiguru-app.vercel.app/
 ---
-## A language worth connecting with.
+## A language worth keeping.
 
-KasiGuru brings language learning into a mobile experience, connecting education with approachable visual design. The project combines learning screens, a recognizable character identity, and illustrated assets.
+Kasiguranin is the endangered language of Casiguran, Aurora. KasiGuru turns the language into something you can pick up a few minutes at a time — for children growing up in Casiguran and for people from the town who now live elsewhere.
 
-This part of the portfolio focuses on the learning experience and visual system, alongside the project's supporting web-based system.
+The app is free, has no ads and needs no account to start. It runs on Android 8.0 and newer, and the same app works in the browser on an iPhone, iPad or computer, offline once it is added to the Home Screen.
 
-## The experience and the identity
+## What's inside
 
-The full case study will show a representative learning journey, mobile interface states, the Kiko mascot, and supporting iconography. Actual project assets are being collected for this presentation.
+- **Learn** — lessons across 12 topics, seven words per lesson.
+- **Practice** — Word Match, Word Search and Word Wheel, with five more games on the way.
+- **Library** — every word, searchable in Kasiguranin, Tagalog or English, plus a "My words" list for review.
+- **Badges** — eleven badges, each with six tiers, to keep learners coming back.
 
-The accompanying narrative will explain the role of each visual element and distinguish my individual contributions from the wider team's work.
+Each entry carries its IPA pronunciation, and words are checked by speakers and moderators before they reach learners.
 
-## Evidence to explore
+## Jepjep, the guide
 
-- Mobile learning screens and a representative user flow
-- Kiko mascot and illustrated learning assets
-- Interface components, icons, and visual consistency
-- Confirmed tools and development decisions
+Learners are guided by Jepjep, a frog in a barong. The mascot and illustrated scenes give the app a warm, local character and make a serious goal — keeping a language alive — feel playful.
 
 ## Part of a wider system
 
-The mobile application connects with a supporting web experience. [Explore the KasiGuru web case study](/work/kasiguru-web/).
-
-> The visual above is a layout placeholder. Actual mobile screens and contribution details will replace it as the case study is completed.
+Behind the app is a moderation console where admins and verifiers keep the dictionary accurate. [Explore the web side of KasiGuru](/work/kasiguru-web/).

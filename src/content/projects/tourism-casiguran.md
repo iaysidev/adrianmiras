@@ -4,7 +4,7 @@ subtitle: A visual identity inspired by place.
 summary: A tourism identity exploration inspired by Casiguran, Aurora, connecting local character with branding and promotional design.
 category: Branding
 tags: [Identity exploration, Graphic design, Social templates]
-order: 5
+order: 9
 status: Concept
 visual: tourism
 contribution: Brand identity exploration. The design rationale and selected applications will accompany the final visuals.
