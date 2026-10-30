@@ -1,29 +1,34 @@
 ---
 title: Tourism Casiguran
 subtitle: A visual identity inspired by place.
-summary: A tourism identity exploration inspired by Casiguran, Aurora, connecting local character with branding and promotional design.
+summary: A tourism identity exploration for Casiguran, Aurora — a Bauhaus-inspired mark built from the town's sea, mountains, harvest, lighthouse and sunrise, with a colour palette, typography and merchandise applications.
 category: Branding
-tags: [Identity exploration, Graphic design, Social templates]
+tags: [Visual identity, Logo design, Merchandise]
 order: 9
 status: Concept
 visual: tourism
-contribution: Brand identity exploration. The design rationale and selected applications will accompany the final visuals.
+contribution: Brand identity exploration. Logo, colour palette, typography and applications.
 ---
-## A place to draw inspiration from.
+## A town told in shapes.
 
-This identity exploration is inspired by Casiguran, Aurora. It considers how color, typography, and locally informed design elements can communicate a sense of place across promotional materials.
+The mark is a grid of geometric tiles, each holding a piece of Casiguran: a sailboat on the waves of Casiguran Sound, a fish, the Ermita Hill Chapel beneath the Sierra Madre, a sheaf of grain beside an ancestral bow and spear, the Ontok lighthouse, and the sun rising over the Pacific. Read together, the tiles also spell out the town's character in the tagline: **wonder, adventure, diversity, inspiration**.
 
 **This is an identity exploration, rather than an official tourism identity or commissioned rebrand.**
 
-## Turning a sense of place into a visual system
+## Colour with a meaning
 
-The full presentation will show the actual logo explorations, color palette, typography, and applications. Those visuals will provide the basis for explaining the local references behind the work.
+Each of the five colours is drawn from a place:
 
-## Evidence to explore
+- **#1C1D5F** — the deep blue of Casiguran Sound, its rivers and the sea.
+- **#DBCF93** — the Sierra Madre and historic landmarks like the Ermita Hill Chapel.
+- **#FCB528** — bountiful harvests and the ancestral bows and spears of the local Indigenous peoples.
+- **#D2272C** — the Ontok lighthouse: guidance, maritime identity and resilience.
+- **#F05523** — dawn over the Pacific, the logo's final exclamation point.
 
-- Logo variations and design rationale
-- A coordinated color and typography system
-- Promotional applications and social templates
-- Notes on the local references that informed the exploration
+## Typography
 
-> The visual above is a layout placeholder. It establishes space for the case-study imagery and does not represent the final identity design.
+The wordmark is set in **Crostan**. Its textured, organic edges give a warm, human contrast to the logo's structured Bauhaus geometry, echoing the rugged Sierra Madre and the town's agricultural roots.
+
+## In use
+
+The system is flexible enough to sit horizontally, stack into a square, or reverse out of a photograph of the coast. Applied to a polo shirt, a tote bag and keychain straps, it shows how the identity could travel with visitors long after they leave.

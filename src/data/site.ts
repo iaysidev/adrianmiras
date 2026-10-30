@@ -174,7 +174,18 @@ export const projectMedia: Record<string, {
       { src: '/images/projects/community/17-president-polo.webp', alt: 'President polo shirt design', caption: 'Polo shirt design.', width: 1600, height: 1067 },
     ],
   },
-  'tourism-casiguran': { cover: null, coverAlt: 'Tourism Casiguran visual identity exploration', gallery: [] },
+  'tourism-casiguran': {
+    cover: '/images/projects/tourism-casiguran/00-cover.webp',
+    coverAlt: 'Casiguran tourism logo: geometric tiles of the sea, mountains, harvest, lighthouse and sunrise above the Casiguran wordmark',
+    gallery: [
+      { src: '/images/projects/tourism-casiguran/01-logo.webp', alt: 'Casiguran tourism logo with the tagline wonder, adventure, diversity, inspiration', caption: 'The primary logo and its four-word tagline.', width: 967, height: 792 },
+      { src: '/images/projects/tourism-casiguran/02-logo-variations.webp', alt: 'Horizontal and stacked versions of the Casiguran logo', caption: 'Horizontal and stacked logo versions.', width: 1200, height: 444 },
+      { src: '/images/projects/tourism-casiguran/03-color-palette.webp', alt: 'Five-colour palette from deep blue to sunrise orange, each with its meaning', caption: 'A five-colour palette, each colour drawn from a place.', width: 1200, height: 295 },
+      { src: '/images/projects/tourism-casiguran/04-lockups.webp', alt: 'Logo mark over a coastal photograph and a compact horizontal lockup', caption: 'The mark on photography, and a compact lockup.', width: 1200, height: 216 },
+      { src: '/images/projects/tourism-casiguran/05-typography.webp', alt: 'Crostan typeface specimen with the rationale for choosing it', caption: 'Typography: Crostan.', width: 1200, height: 316 },
+      { src: '/images/projects/tourism-casiguran/06-applications.webp', alt: 'The logo applied to a polo shirt, a tote bag and keychain straps', caption: 'Applications: polo shirt, tote bag and keychains.', width: 1200, height: 1014 },
+    ],
+  },
 };
 
 export { toolGroups } from './tools';
